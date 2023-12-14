@@ -1,14 +1,7 @@
-const handler = async (_request: Request): Promise<Response> => {
-    const resp = await fetch('https://api.github.com/users/denoland', {
-        headers: {accept: "application/json"}
-    });
-
-    return new Response(resp.body, {
-        status: resp.status,
-        headers: {
-            "content-type": "application/json"
-        },
-    });
+const BASE_PATH = "../public";
+const handler = async (req: Request) => {
+  const filePath = BASE_PATH + new URL(req.url).pathname;
+  return new Response(filePath);
 };
 
 Deno.serve(handler, { port: 8000 });
